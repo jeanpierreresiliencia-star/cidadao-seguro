@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Ocorrência</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="menu-nav">
+        <a href="cadastro-cidadao.html">Cidadão</a>
+        <a href="cadastro-agente.html">Agente</a>
+        <a href="cadastro-bairro.html">Bairro</a>
+        <a href="cadastro-ocorrencia.html" class="active">Ocorrência</a>
+    </nav>
+
+    <main class="container">
+        <form class="formulario" action="/cadastrar-ocorrencia" method="POST">
+            <h1>Cadastrar Ocorrência</h1>
+
+            <label for="id_cidadao">Cidadão</label>
+            <select id="id_cidadao" name="id_cidadao" required>
+                <!-- Preenchido via backend/JS -->
+                <option value="">Selecione um Cidadão</option>
+            </select>
+
+            <label for="id_agente">Agente de Segurança</label>
+            <select id="id_agente" name="id_agente" required>
+                <!-- Preenchido via backend/JS -->
+                <option value="">Selecione um Agente</option>
+            </select>
+
+            <label for="id_bairro">Bairro</label>
+            <select id="id_bairro" name="id_bairro" required>
+                <!-- Preenchido via backend/JS -->
+                <option value="">Selecione um Bairro</option>
+            </select>
+
+            <label for="tipo_ocorrencia">Tipo de ocorrência</label>
+            <input type="text" id="tipo_ocorrencia" name="tipo_ocorrencia" required placeholder="Ex: Roubo, Vandalismo, Incêndio...">
+
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" name="descricao" rows="4" required></textarea>
+
+            <label for="data">Data</label>
+            <input type="date" id="data" name="data" required>
+
+            <label for="hora">Hora</label>
+            <input type="time" id="hora" name="hora" required>
+
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+                <option value="Aberta">Aberta</option>
+                <option value="Em atendimento">Em atendimento</option>
+                <option value="Encerrada">Encerrada</option>
+            </select>
+
+            <button type="submit">Salvar</button>
+        </form>
+    </main>
+
+<script>
+    const parametros = new URLSearchParams(window.location.search);
+
+    if (parametros.get("sucesso") === "true") {
+        alert("Ocorrência cadastrada com sucesso!");
+    }
+
+    // Carregar opções dos Selects
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("/api/cidadaos").then(res => res.json()).then(data => {
+            const select = document.getElementById("id_cidadao");
+            data.forEach(c => select.innerHTML += `<option value="${c.id_cidadao}">${c.nome}</option>`);
+        });
+
+        fetch("/api/agentes").then(res => res.json()).then(data => {
+            const select = document.getElementById("id_agente");
+            data.forEach(a => select.innerHTML += `<option value="${a.id_agente}">${a.nome}</option>`);
+        });
+
+        fetch("/api/bairros").then(res => res.json()).then(data => {
+            const select = document.getElementById("id_bairro");
+            data.forEach(b => select.innerHTML += `<option value="${b.id_bairro}">${b.nome_bairro}</option>`);
+        });
+    });
+</script>
+</body>
+</html>

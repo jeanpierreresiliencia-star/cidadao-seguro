@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Bairro</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="menu-nav">
+        <a href="cadastro-cidadao.html">Cidadão</a>
+        <a href="cadastro-agente.html">Agente</a>
+        <a href="cadastro-bairro.html" class="active">Bairro</a>
+        <a href="cadastro-ocorrencia.html">Ocorrência</a>
+    </nav>
+
+    <main class="container">
+        <form class="formulario" action="/cadastrar-bairro" method="POST">
+            <h1>Cadastrar Bairro</h1>
+
+            <label for="nome_bairro">Nome do bairro</label>
+            <input type="text" id="nome_bairro" name="nome_bairro" required>
+
+            <label for="zona">Zona</label>
+            <select id="zona" name="zona" required>
+                <option value="Norte">Norte</option>
+                <option value="Sul">Sul</option>
+                <option value="Leste">Leste</option>
+                <option value="Oeste">Oeste</option>
+                <option value="Central">Central</option>
+            </select>
+
+            <label for="populacao_estimada">População estimada</label>
+            <input type="number" id="populacao_estimada" name="populacao_estimada" required>
+
+            <label for="observacoes">Observações</label>
+            <textarea id="observacoes" name="observacoes" rows="4"></textarea>
+
+            <button type="submit">Salvar</button>
+        </form>
+    </main>
+
+<script>
+    const parametros = new URLSearchParams(window.location.search);
+
+    if (parametros.get("sucesso") === "true") {
+        alert("Bairro cadastrado com sucesso!");
+    }
+</script>
+</body>
+</html>
