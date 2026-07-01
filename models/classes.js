@@ -3,14 +3,17 @@
 // Sistema Cidadão Seguro - Classes POO
 // ============================================
 
+// 1. Carrega as variáveis de ambiente do arquivo .env (deve ser a primeira coisa no arquivo)
+require('dotenv').config();
+
 const mysql = require("mysql2");
 
-// Configuração da conexão com o MySQL
+// 3. Configura a conexão utilizando as variáveis globais do sistema
 const conexao = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "alunolab",
-    database: "cidadao_seguro"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
 
 conexao.connect((erro) => {
